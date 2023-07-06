@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <>
@@ -15,14 +17,14 @@ const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" to='/'>
               Expense Management
-            </a>
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            </Link>
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
+                <Link className="nav-link active" aria-current="page" to='/user'>
+                  User
+                </Link>
               </li>
             </ul>
           </div>
