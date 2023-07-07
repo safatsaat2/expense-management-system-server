@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useState } from 'react';
 import Spinner from '../Components/Spinner';
+// import { apiRequest } from '../utils/apiHelpers';
 
-const Register = () => {
+const Register = () => { 
 const navigate = useNavigate()
 const [loading, setLoading] = useState(false)
 
@@ -12,7 +13,9 @@ const [loading, setLoading] = useState(false)
     const submitHandlers = async (values) =>{
         try {
           setLoading(true)
-          await axios.post("/users/register", values)
+          // const {data} = await apiRequest.post('/users/register', values) 
+          // console.log("Register data", data);
+          await axios.post('http://localhost:8080/api/v1/users/register', values)
           message.success('Registration successful')
           setLoading(false)
           navigate('/login')
@@ -50,3 +53,5 @@ const [loading, setLoading] = useState(false)
 };
 
 export default Register;
+
+
