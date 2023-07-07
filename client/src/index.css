@@ -9,5 +9,12 @@
 }
 
 .navbar{
-  background-color:cadetblue !important;
+  background-color:rgb(186, 231, 233) !important;
+}
+.register-page{
+  background-color: rgb(64, 167, 150);
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
