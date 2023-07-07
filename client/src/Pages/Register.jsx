@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Register = () => {
 
+
+// Form Submit
     const submitHandlers = (values) =>{
         console.log(values)
     }
