@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(cors())
 
 // routes
-app.use('/api/v1/users', require('./routes/userRoute'))
+app.use("/api/v1/users", require("./routes/userRoute"));
 
 // port
 
