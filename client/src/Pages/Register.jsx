@@ -1,8 +1,8 @@
 import {Form, Input} from 'antd'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-
+const navigate = useNavigate()
 
 // Form Submit
     const submitHandlers = (values) =>{
