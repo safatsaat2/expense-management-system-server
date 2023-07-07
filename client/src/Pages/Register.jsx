@@ -1,6 +1,6 @@
 import {Form, Input, message} from 'antd'
 import { Link, useNavigate } from 'react-router-dom';
-import {axios} from 'axios'
+import axios from 'axios'
 import { useState } from 'react';
 import Spinner from '../Components/Spinner';
 
@@ -12,10 +12,10 @@ const [loading, setLoading] = useState(false)
     const submitHandlers = async (values) =>{
         try {
           setLoading(true)
-          await axios.post('/users/register', values)
+          await axios.post("/users/register", values)
           message.success('Registration successful')
           setLoading(false)
-          navigate('/')
+          navigate('/login')
         } catch (error) {
           setLoading(true)
           message.error("Invalid user or password")
