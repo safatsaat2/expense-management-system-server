@@ -40,14 +40,13 @@ const Header = () => {
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <p className="nav-link active" aria-current="page" to='/user'>
-                  {loguser  === "" ? <></> : loguser.name}
-                </p>
+              {" "}
+                <p className="nav-link">{loguser && loguser.name}</p>{" "}
               </li>
               <li className="nav-item">
-              {loguser === "" ? <></> : <button className="btn btn-primary" onClick={handleLogout}>
+              <button className="btn btn-primary" onClick={handleLogout}>
                   Log out
-                </button>}
+                </button>
               </li>
             </ul>
           </div>
