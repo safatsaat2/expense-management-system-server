@@ -2,7 +2,7 @@ const transectionModel = require("../models/transectionModel");
 
 const getTransection = async (req, res)=>{
     try {
-        const transections = await transectionModel.find({})
+        const transections = await transectionModel.find({userid:req.body.userid})
         res.status(200).json(transections);
     } catch (error) {
         res.status(500).json(error)

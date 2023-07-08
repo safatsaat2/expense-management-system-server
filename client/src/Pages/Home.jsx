@@ -1,8 +1,12 @@
-import { Form, Input, Modal, Select } from "antd";
+import { Form, Input, Modal, Select, message } from "antd";
 import { useState } from "react";
+import axios from 'axios'
+import Spinner from "../Components/Spinner";
+
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -12,13 +16,24 @@ const Home = () => {
 
 //   Form handling
 
-const handleSubmit = (values) => {
-    console.log(values)
+const handleSubmit = async (values) => {
+    try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        setLoading(true);
+        await axios.post('http://localhost:8080/api/v1/transections/add-transection', {...values, userid:user._id},)
+        setLoading(false);
+        message.success("Transaction added successfully")
+        setIsModalOpen(false);
+    } catch (error) {
+        setLoading(false);
+        message.error('Failed to add transaction')
+    }
 }
 
   return (
     <>
       <div className="filters d-flex align-items-center justify-content-between px-5 py-2">
+        {loading && <Spinner/>}
         <div>Range Filters</div>
         <button className="btn btn-primary" onClick={showModal}>Add New</button>
       </div>
@@ -55,7 +70,7 @@ const handleSubmit = (values) => {
                     <Select.Option value='other'>Other</Select.Option>
                 </Select>
             </Form.Item>
-            <Form.Item label="Date" name='amount'>
+            <Form.Item label="Date" name='date'>
                 <Input type="date" />
             </Form.Item>
             <Form.Item label="Refrence" name='refrence'>

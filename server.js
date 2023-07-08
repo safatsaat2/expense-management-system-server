@@ -27,7 +27,7 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 
 // Transection routes
 
-app.use("/api/v1/transactions", require("./routes/transectionRoute"))
+app.use("/api/v1/transections", require("./routes/transectionRoute"))
 
 // port
 

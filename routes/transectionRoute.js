@@ -16,7 +16,7 @@ router.post('/add-transection', addTransection)
 
 // Get Transection || Get
 
-router.get('/get-transection', getTransection)
+router.post('/get-transection', getTransection)
 
 
 module.exports = router;
