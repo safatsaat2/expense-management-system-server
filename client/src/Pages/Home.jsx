@@ -1,5 +1,5 @@
-import { Form, Input, Modal, Select, message } from "antd";
-import { useState } from "react";
+import { Form, Input, Modal, Select, Table, message } from "antd";
+import { useState, useEffect } from "react";
 import axios from 'axios'
 import Spinner from "../Components/Spinner";
 
@@ -7,12 +7,63 @@ import Spinner from "../Components/Spinner";
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [allTransection, setAllTransection] = useState([])
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+// get all transaction
+const getAllTransections = async() => {
+ try {
+    const user = JSON.parse(localStorage.getItem('user'))
+    setLoading(true)
+   const res = await axios.post('http://localhost:8080/api/v1/transections/get-transection', {userid: user._id})
+   setLoading(false)
+    setAllTransection(res.data)
+    console.log(res.data)
+ } catch (error) {
+    console.error(error)
+    message.error('Issue with transaction')
+ }
+}
+// Table Data
+
+const columns = [
+    {
+        title: "Date",
+        dataIndex: "date",
+    },
+    {
+        title: "Amount",
+        dataIndex: "amount",
+    },
+    {
+        title: "Type",
+        dataIndex: "type",
+    },
+    {
+        title: "Category",
+        dataIndex: "category",
+    },
+    {
+        title: "Refrence",
+        dataIndex: "refrence",
+    },
+    {
+        title: "Action",
+    },
+]
+
+
+// useEffect hook
+
+useEffect(() => {
+    getAllTransections()
+},[])
+
 
 //   Form handling
 
@@ -38,7 +89,7 @@ const handleSubmit = async (values) => {
         <button className="btn btn-primary" onClick={showModal}>Add New</button>
       </div>
       <div className="content">
-        
+        <Table columns={columns} dataSource={allTransection}/>
       </div>
       <Modal
           title="Add Transection"
