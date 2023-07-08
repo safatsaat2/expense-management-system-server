@@ -1,5 +1,6 @@
 
-const express = require('express')
+const express = require('express');
+const { addTransection, getTransection } = require('../controllers/transectionCtrl');
 
 
 
@@ -8,6 +9,14 @@ const express = require('express')
 const router = express.Router()
 
 // routes
+
+// Add transection || POST
+
+router.post('/add-transection', addTransection)
+
+// Get Transection || Get
+
+router.get('/get-transection', getTransection)
 
 
 module.exports = router;

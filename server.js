@@ -21,7 +21,13 @@ app.use(express.json())
 app.use(cors())
 
 // routes
+
+// User routes
 app.use("/api/v1/users", require("./routes/userRoute"));
+
+// Transection routes
+
+app.use("/api/v1/transactions", require("./routes/transectionRoute"))
 
 // port
 
