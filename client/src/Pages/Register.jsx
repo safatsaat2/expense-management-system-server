@@ -1,7 +1,7 @@
 import {Form, Input, message} from 'antd'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Spinner from '../Components/Spinner';
 // import { apiRequest } from '../utils/apiHelpers';
 
@@ -25,6 +25,13 @@ const [loading, setLoading] = useState(false)
           setLoading(false)
         }
     }
+  // prevent for log in user
+
+  useEffect(()=>{
+    if(localStorage.getItem(`user`)){
+      navigate('/');
+    }
+  },[navigate])
 
 
   return (

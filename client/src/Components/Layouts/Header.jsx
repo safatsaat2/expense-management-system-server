@@ -1,6 +1,24 @@
-import { Link } from "react-router-dom";
+import { message } from "antd";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+
+  const [loguser, setLoguser] = useState('');
+  const navigate = useNavigate()
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem('user'))
+    if(user){
+      setLoguser(user)
+    }
+  },[])
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    message.success("Log out successfully!")
+    navigate("/login")
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -22,9 +40,14 @@ const Header = () => {
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to='/user'>
-                  User
-                </Link>
+                <p className="nav-link active" aria-current="page" to='/user'>
+                  {loguser  === "" ? <></> : loguser.name}
+                </p>
+              </li>
+              <li className="nav-item">
+              {loguser === "" ? <></> : <button className="btn btn-primary" onClick={handleLogout}>
+                  Log out
+                </button>}
               </li>
             </ul>
           </div>
