@@ -2,7 +2,7 @@ import { Form, Input, Modal, Select, Table, message, DatePicker } from "antd";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../Components/Spinner";
-import moment from "moment"
+import moment from "moment";
 const { RangePicker } = DatePicker;
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
   const [allTransection, setAllTransection] = useState([]);
   const [frequency, setFrequency] = useState("7");
   const [selectedDate, setSelectedDate] = useState([]);
-  const [type, setType] =useState([])
+  const [type, setType] = useState([]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -26,7 +26,7 @@ const Home = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (text) => <span>{moment(text).format('YYYY-MM-DD')}</span>
+      render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
     },
     {
       title: "Amount",
@@ -59,7 +59,7 @@ const Home = () => {
         setLoading(true);
         const res = await axios.post(
           "http://localhost:8080/api/v1/transections/get-transection",
-          { userid: user._id, frequency, selectedDate }
+          { userid: user._id, frequency, selectedDate, type }
         );
         setLoading(false);
         setAllTransection(res.data);
@@ -70,7 +70,7 @@ const Home = () => {
       }
     };
     getAllTransections();
-  }, [frequency, selectedDate]);
+  }, [frequency, selectedDate, type]);
 
   //   Form handling
 
@@ -95,19 +95,35 @@ const Home = () => {
     <>
       <div className="filters d-flex align-items-center justify-content-between px-5 py-2">
         {loading && <Spinner />}
-        <div>Select Frequency</div>
-        <Select value={frequency} onChange={(values) => setFrequency(values)}>
-          <Select.Option value="7">Last 1 week</Select.Option>
-          <Select.Option value="30">Last 1 Month</Select.Option>
-          <Select.Option value="365">Last 1 Year</Select.Option>
-          <Select.Option value="custom">custom</Select.Option>
-        </Select>
-        {frequency === "custom" && (
-          <RangePicker
-            value={selectedDate}
-            onChange={(values) => setSelectedDate(values)}
-          />
-        )}
+        <div>
+          <h6>Select Frequency</h6>
+          <Select value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select.Option value="7">Last 1 week</Select.Option>
+            <Select.Option value="30">Last 1 Month</Select.Option>
+            <Select.Option value="365">Last 1 Year</Select.Option>
+            <Select.Option value="custom">custom</Select.Option>
+          </Select>
+          {frequency === "custom" && (
+            <RangePicker
+              value={selectedDate}
+              onChange={(values) => setSelectedDate(values)}
+            />
+          )}
+        </div>
+        <div>
+          <h6>Select Type</h6>
+          <Select value={type} onChange={(values) => setType(values)}>
+            <Select.Option value="all">All</Select.Option>
+            <Select.Option value="income">Income</Select.Option>
+            <Select.Option value="expense">Expense</Select.Option>
+          </Select>
+          {frequency === "custom" && (
+            <RangePicker
+              value={selectedDate}
+              onChange={(values) => setSelectedDate(values)}
+            />
+          )}
+        </div>
 
         <button className="btn btn-primary" onClick={showModal}>
           Add New
