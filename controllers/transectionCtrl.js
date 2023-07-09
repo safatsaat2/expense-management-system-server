@@ -1,8 +1,14 @@
 const transectionModel = require("../models/transectionModel");
+const moment = require("moment")
 
 const getTransection = async (req, res)=>{
     try {
-        const transections = await transectionModel.find({userid:req.body.userid})
+        const {frequency } = req.body;
+        const transections = await transectionModel.find({
+            date:{
+                $gt: moment().subtract(Number(frequency), 'd').toDate(),
+            },
+            userid:req.body.userid})
         res.status(200).json(transections);
     } catch (error) {
         res.status(500).json(error)

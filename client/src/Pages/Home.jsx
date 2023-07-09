@@ -8,6 +8,7 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allTransection, setAllTransection] = useState([])
+  const [frequency, setFrequency]= useState('7')
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -15,20 +16,7 @@ const Home = () => {
     setIsModalOpen(false);
   };
 
-// get all transaction
-const getAllTransections = async() => {
- try {
-    const user = JSON.parse(localStorage.getItem('user'))
-    setLoading(true)
-   const res = await axios.post('http://localhost:8080/api/v1/transections/get-transection', {userid: user._id})
-   setLoading(false)
-    setAllTransection(res.data)
-    console.log(res.data)
- } catch (error) {
-    console.error(error)
-    message.error('Issue with transaction')
- }
-}
+
 // Table Data
 
 const columns = [
@@ -61,8 +49,22 @@ const columns = [
 // useEffect hook
 
 useEffect(() => {
+    // get all transaction
+const getAllTransections = async() => {
+    try {
+       const user = JSON.parse(localStorage.getItem('user'))
+       setLoading(true)
+      const res = await axios.post('http://localhost:8080/api/v1/transections/get-transection', {userid: user._id, frequency})
+      setLoading(false)
+       setAllTransection(res.data)
+       console.log(res.data)
+    } catch (error) {
+       console.error(error)
+       message.error('Issue with transaction')
+    }
+   }
     getAllTransections()
-},[])
+},[frequency])
 
 
 //   Form handling
@@ -85,7 +87,13 @@ const handleSubmit = async (values) => {
     <>
       <div className="filters d-flex align-items-center justify-content-between px-5 py-2">
         {loading && <Spinner/>}
-        <div>Range Filters</div>
+        <div>Select Frequency</div>
+        <Select value={frequency} onChange={(values)=> setFrequency(values)}>
+            <Select.Option value='7'>Last 1 week</Select.Option>
+            <Select.Option value='30'>Last 1 Month</Select.Option>
+            <Select.Option value='365'>Last 1 Year</Select.Option>
+            <Select.Option value="custom">custom</Select.Option>
+        </Select>
         <button className="btn btn-primary" onClick={showModal}>Add New</button>
       </div>
       <div className="content">
