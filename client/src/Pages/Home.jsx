@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../Components/Spinner";
 import moment from "moment";
+import { Icon } from "@iconify/react";
+import Analytics from "../Components/Analytics";
 const { RangePicker } = DatePicker;
 
 const Home = () => {
@@ -12,6 +14,7 @@ const Home = () => {
   const [frequency, setFrequency] = useState("7");
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState([]);
+  const [viewData, setViewData] = useState('table')
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -112,10 +115,10 @@ const Home = () => {
         </div>
         <div>
           <h6>Select Type</h6>
-          <Select value={type} onChange={(values) => setType(values)}>
-            <Select.Option value="all">All</Select.Option>
-            <Select.Option value="income">Income</Select.Option>
-            <Select.Option value="expense">Expense</Select.Option>
+          <Select value={type} defaultActiveFirstOption={true} onChange={(values) => setType(values)}>
+            <Select.Option  value="all">ALL</Select.Option>
+            <Select.Option value="income">INCOME</Select.Option>
+            <Select.Option value="expense">EXPENSE</Select.Option>
           </Select>
           {frequency === "custom" && (
             <RangePicker
@@ -124,13 +127,22 @@ const Home = () => {
             />
           )}
         </div>
-
-        <button className="btn btn-primary" onClick={showModal}>
-          Add New
-        </button>
+        <div>
+          <Icon className={`mx-2 fs-5 anticon ${viewData === 'table' ? "active-icon" : 'inactive-icon'}`} icon="uiw:menu" onClick={()=> setViewData('table')} />
+          <Icon className={`mx-2 fs-5 anticon ${viewData === 'analytics' ? "active-icon" : 'inactive-icon'}`} icon="teenyicons:area-chart-outline" onClick={()=> setViewData('analytics')} />
+        </div>
+        <div>
+          <button className="btn btn-primary" onClick={showModal}>
+            Add New
+          </button>
+        </div>
       </div>
       <div className="content">
-        <Table columns={columns} dataSource={allTransection} />
+        {
+          viewData === "table" ? 
+          <Table columns={columns} dataSource={allTransection} />
+          : <Analytics allTransection={allTransection}/>
+        }
       </div>
       <Modal
         title="Add Transection"

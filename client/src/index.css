@@ -23,3 +23,16 @@
 .filters{
   box-shadow: 0 0 15px rgb(231, 231, 231);
 }
+
+/* AntIcon */
+
+.anticon{
+  cursor: pointer;
+}
+.active-icon{
+  color: black;
+}
+
+.inactive-icon{
+  color: gray;
+}
