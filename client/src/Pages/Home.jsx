@@ -14,8 +14,8 @@ const Home = () => {
   const [frequency, setFrequency] = useState("7");
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState([]);
-  const [viewData, setViewData] = useState('table')
-  const [editable, setEditable] = useState(null)
+  const [viewData, setViewData] = useState("table");
+  const [editable, setEditable] = useState(null);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -50,15 +50,24 @@ const Home = () => {
     },
     {
       title: "Action",
-      render: (text, record) =>(
-        <div>
-          <Icon icon="material-symbols:edit-outline" onClick={() =>{
-            setEditable(record)
-            setIsModalOpen(true)
-          }}/>
-          <Icon icon="material-symbols:delete-outline" className="mx-2" />
+      render: (text, record) => (
+        <div className="">
+          <Icon
+            icon="material-symbols:edit-outline"
+            onClick={() => {
+              setEditable(record);
+              setIsModalOpen(true);
+            }}
+          />
+          <Icon
+            icon="material-symbols:delete-outline"
+            className="mx-2 cursor-pointer"
+            onClick={() => {
+              handleDelete(record);
+            }}
+          />
         </div>
-      )
+      ),
     },
   ];
 
@@ -85,20 +94,51 @@ const Home = () => {
     getAllTransections();
   }, [frequency, selectedDate, type]);
 
+  // Deelete Handler
+
+  const handleDelete = async(record) => {
+    try {
+      setLoading(true)
+      console.log(record._id)
+      await axios.delete("http://localhost:8080/api/v1/transections/delete-transection", {transectionId:record._id})
+      setLoading(false)
+      message.success("Transaction Deleted!")
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      message.error("Unable to Delete")
+    }
+  };
+
   //   Form handling
 
   const handleSubmit = async (values) => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
-      await axios.post(
-        "http://localhost:8080/api/v1/transections/add-transection",
-        { ...values, userid: user._id }
-      );
-      setLoading(false);
-      message.success("Transaction added successfully");
+      if (editable) {
+        await axios.post(
+          "http://localhost:8080/api/v1/transections/edit-transection",
+          {
+            payload: {
+              ...values,
+              userId: user._id,
+            },
+            transectionId: editable._id,
+          }
+        );
+        setLoading(false);
+        message.success("Transaction Updated Successfully");
+      } else {
+        await axios.post(
+          "http://localhost:8080/api/v1/transections/add-transection",
+          { ...values, userid: user._id }
+        );
+        setLoading(false);
+        message.success("Transaction added successfully");
+      }
       setIsModalOpen(false);
-      setEditable(null)
+      setEditable(null);
     } catch (error) {
       setLoading(false);
       message.error("Failed to add transaction");
@@ -126,8 +166,12 @@ const Home = () => {
         </div>
         <div>
           <h6>Select Type</h6>
-          <Select value={type} defaultActiveFirstOption={true} onChange={(values) => setType(values)}>
-            <Select.Option  value="all">ALL</Select.Option>
+          <Select
+            value={type}
+            defaultActiveFirstOption={true}
+            onChange={(values) => setType(values)}
+          >
+            <Select.Option value="all">ALL</Select.Option>
             <Select.Option value="income">INCOME</Select.Option>
             <Select.Option value="expense">EXPENSE</Select.Option>
           </Select>
@@ -139,8 +183,20 @@ const Home = () => {
           )}
         </div>
         <div>
-          <Icon className={`mx-2 fs-5 anticon ${viewData === 'table' ? "active-icon" : 'inactive-icon'}`} icon="uiw:menu" onClick={()=> setViewData('table')} />
-          <Icon className={`mx-2 fs-5 anticon ${viewData === 'analytics' ? "active-icon" : 'inactive-icon'}`} icon="teenyicons:area-chart-outline" onClick={()=> setViewData('analytics')} />
+          <Icon
+            className={`mx-2 fs-5 anticon ${
+              viewData === "table" ? "active-icon" : "inactive-icon"
+            }`}
+            icon="uiw:menu"
+            onClick={() => setViewData("table")}
+          />
+          <Icon
+            className={`mx-2 fs-5 anticon ${
+              viewData === "analytics" ? "active-icon" : "inactive-icon"
+            }`}
+            icon="teenyicons:area-chart-outline"
+            onClick={() => setViewData("analytics")}
+          />
         </div>
         <div>
           <button className="btn btn-primary" onClick={showModal}>
@@ -149,11 +205,11 @@ const Home = () => {
         </div>
       </div>
       <div className="content">
-        {
-          viewData === "table" ? 
+        {viewData === "table" ? (
           <Table columns={columns} dataSource={allTransection} />
-          : <Analytics allTransection={allTransection}/>
-        }
+        ) : (
+          <Analytics allTransection={allTransection} />
+        )}
       </div>
       <Modal
         title={editable ? "Edit Transection" : "Add Transection"}
@@ -161,7 +217,11 @@ const Home = () => {
         onCancel={handleCancel}
         footer={false}
       >
-        <Form layout="vertical" onFinish={handleSubmit} initialValues={editable}>
+        <Form
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={editable}
+        >
           <Form.Item label="Amount" name="amount">
             <Input type="text" />
           </Form.Item>
