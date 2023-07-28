@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { addTransection, getTransection } = require('../controllers/transectionCtrl');
+const { addTransection, getTransection, editTransection } = require('../controllers/transectionCtrl');
 
 
 
