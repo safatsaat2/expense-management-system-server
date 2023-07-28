@@ -14,6 +14,10 @@ const router = express.Router()
 
 router.post('/add-transection', addTransection)
 
+// Edit transection || POST
+
+router.post('/edit-transection', editTransection)
+
 // Get Transection || Get
 
 router.post('/get-transection', getTransection)

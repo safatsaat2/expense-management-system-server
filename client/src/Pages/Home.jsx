@@ -15,6 +15,7 @@ const Home = () => {
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState([]);
   const [viewData, setViewData] = useState('table')
+  const [editable, setEditable] = useState(null)
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -49,6 +50,15 @@ const Home = () => {
     },
     {
       title: "Action",
+      render: (text, record) =>(
+        <div>
+          <Icon icon="material-symbols:edit-outline" onClick={() =>{
+            setEditable(record)
+            setIsModalOpen(true)
+          }}/>
+          <Icon icon="material-symbols:delete-outline" className="mx-2" />
+        </div>
+      )
     },
   ];
 
@@ -88,6 +98,7 @@ const Home = () => {
       setLoading(false);
       message.success("Transaction added successfully");
       setIsModalOpen(false);
+      setEditable(null)
     } catch (error) {
       setLoading(false);
       message.error("Failed to add transaction");
@@ -145,12 +156,12 @@ const Home = () => {
         }
       </div>
       <Modal
-        title="Add Transection"
+        title={editable ? "Edit Transection" : "Add Transection"}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={false}
       >
-        <Form layout="vertical" onFinish={handleSubmit}>
+        <Form layout="vertical" onFinish={handleSubmit} initialValues={editable}>
           <Form.Item label="Amount" name="amount">
             <Input type="text" />
           </Form.Item>

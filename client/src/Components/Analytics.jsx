@@ -16,7 +16,7 @@ const Analytics = ({ allTransection }) => {
     "other",
   ];
 
-  // Totatl Transaction
+  // Total Transaction
   const totalTransaction = allTransection.length;
   const totalIncomeTransactions = allTransection.filter(
     (transaction) => transaction.type === "income"
@@ -105,7 +105,7 @@ const Analytics = ({ allTransection }) => {
       </div>
       <div className="row mt-3">
         <div className="col-md-4">
-          <h4>Categorywise Income</h4>
+          <h4>Category wise Income</h4>
           {categories.map((category) => {
             const amount = allTransection
               .filter(
@@ -116,7 +116,7 @@ const Analytics = ({ allTransection }) => {
               .reduce((acc, transaction) => acc + transaction.amount, 0);
             return (
               amount > 0 && (
-                <div className="card">
+                <div className="card my-2">
                   <div className="card-body">
                     <h5>{category}</h5>
                     <Progress
@@ -131,7 +131,7 @@ const Analytics = ({ allTransection }) => {
           })}
         </div>
         <div className="col-md-4">
-          <h4>Categorywise Expense</h4>
+          <h4>Category wise Expense</h4>
           {categories.map((category) => {
             const amount = allTransection
               .filter(
@@ -142,7 +142,7 @@ const Analytics = ({ allTransection }) => {
               .reduce((acc, transaction) => acc + transaction.amount, 0);
             return (
               amount > 0 && (
-                <div className="card">
+                <div className="card my-2">
                   <div className="card-body">
                     <h5>{category}</h5>
                     <Progress
