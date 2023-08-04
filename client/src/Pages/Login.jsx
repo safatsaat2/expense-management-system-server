@@ -40,17 +40,17 @@ const Login = () => {
     <div style={{ background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,61,79,1) 100%)" }}>
       <div style={{ height: "100vh", maxWidth: "1280px", marginLeft: "auto", marginRight:"auto" }}>
       <Link className="navbar-brand" to='/' >
-        <p style={{ fontSize: "80px", width: "60%", marginLeft: "auto", marginRight: "auto" }}> Expense Management</p>
+        <p data-aos="zoom-in" data-aos-duration="1500" style={{ fontSize: "80px", width: "60%", marginLeft: "auto", marginRight: "auto" }}> Expense Management</p>
       </Link>
       <div className="register-page">
         {loading && <Spinner />}
 
         <div className="d-flex align-items-center justify-content-center">
-          <h1 style={{ fontSize: "50px", width: "40%", marginRight: "24px" }}>
+          <h1 data-aos="fade-right" data-aos-duration="1500" style={{ fontSize: "50px", width: "40%", marginRight: "24px" }}>
             Log In to Our Smart Expense Management Platform!
           </h1>
           <div>
-            <Form layout="vertical" onFinish={submitHandlers}>
+            <Form data-aos="fade-left" data-aos-duration="1500" layout="vertical" onFinish={submitHandlers}>
               <Form.Item name="email">
                 <p style={{ color: "white", }}>Email:</p>
                 <Input type="email" />
