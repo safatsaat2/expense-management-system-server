@@ -6,12 +6,12 @@ const Header = () => {
 
   const [loguser, setLoguser] = useState('');
   const navigate = useNavigate()
-  useEffect(()=>{
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))
-    if(user){
+    if (user) {
       setLoguser(user)
     }
-  },[])
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('user')
@@ -21,8 +21,8 @@ const Header = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary" >
+        <div className="container-fluid" style={{ maxWidth: "1280px" }}>
           <button
             className="navbar-toggler"
             type="button"
@@ -38,17 +38,39 @@ const Header = () => {
             <Link className="navbar-brand" to='/'>
               Expense Management
             </Link>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ms-auto" style={{ marginRight: "40%" }}>
               <li className="nav-item">
-              {" "}
+                {" "}
                 <p className="nav-link">{loguser && loguser.name}</p>{" "}
               </li>
+              <Link to='/'>
+                <li className="nav-item">
+                  {" "}
+                  <p className="nav-link">Home</p>{" "}
+                </li>
+              </Link>
+              <Link to='/manage'>
               <li className="nav-item">
-              <button className="btn btn-primary" onClick={handleLogout}>
-                  Log out
-                </button>
+                {" "}
+                <p className="nav-link">Manage Expense</p>{" "}
               </li>
+              </Link>
             </ul>
+            {
+              loguser ? <>
+              <button className="btn btn-primary" onClick={handleLogout}>
+              Log out
+              </button>
+              </>
+              :
+              <>
+              <Link to='/login'>
+              <button className="btn btn-primary">
+              Log in
+              </button>
+              </Link>
+              </>
+            }
           </div>
         </div>
       </nav>

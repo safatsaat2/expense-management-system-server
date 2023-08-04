@@ -7,6 +7,7 @@ import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import PrivateRoute from "./Routes/PrivateRoute";
+import LandingPage from "./Pages/LandingPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +15,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: (
+          <LandingPage/>
+        ),
+      },
+      {
+        path: "/manage",
         element: (
           <PrivateRoute>
             <Home />
