@@ -9,7 +9,7 @@
 }
 
 .navbar{
-  background-color:rgb(0, 6, 27) !important;
+  background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,61,79,1) 100%) !important;
   
 }
 .navbar-brand{
@@ -49,4 +49,10 @@
 
 .inactive-icon{
   color: gray;
+}
+
+.landing{
+  height: 90vh;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,61,79,1) 100%) !important;
+  
 }

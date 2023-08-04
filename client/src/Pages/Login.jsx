@@ -51,12 +51,14 @@ const Login = () => {
           </h1>
           <div>
             <Form data-aos="fade-left" data-aos-duration="1500" layout="vertical" onFinish={submitHandlers}>
+            <p style={{ color: "white", }}>Email:</p>
               <Form.Item name="email">
-                <p style={{ color: "white", }}>Email:</p>
+
                 <Input type="email" />
               </Form.Item>
+              <p style={{ color: "white", }}>Password:</p>
+
               <Form.Item name="password">
-                <p style={{ color: "white", }}>Password:</p>
                 <Input type="password" />
               </Form.Item>
               <div className="d-flex justify-content-between g-2 ">

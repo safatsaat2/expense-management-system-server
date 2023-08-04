@@ -49,16 +49,19 @@ const Register = () => {
               </h1>
 
               <Form data-aos="fade-left" data-aos-duration="1500" layout='vertical' onFinish={submitHandlers}>
+              <p style={{ color: "white", }}>Name:</p>
                 <Form.Item name='name'>
-                <p style={{ color: "white", }}>Name:</p>
+
                   <Input />
                 </Form.Item>
-                <Form.Item name='email'>
                 <p style={{ color: "white", }}>Email:</p>
+                <Form.Item name='email'>
+
                   <Input type='email' />
                 </Form.Item>
-                <Form.Item name='password'>
                 <p style={{ color: "white", }}>Password:</p>
+                <Form.Item name='password'>
+
                   <Input type='password' />
                 </Form.Item>
                 <div className="d-flex justify-content-between g-2 ">
