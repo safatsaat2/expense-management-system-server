@@ -36,35 +36,38 @@ const Register = () => {
 
   return (
     <>
-      <div style={{ background: "rgb(0, 6, 27)" }}>
+      <div style={{ background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,61,79,1) 100%)" }}>
         <div style={{ height: "100vh", maxWidth: "1280px", marginLeft: "auto", marginRight: "auto" }}>
           <Link className="navbar-brand" to='/' >
             <p style={{ fontSize: "80px", width: "60%", marginLeft: "auto", marginRight: "auto" }}> Expense Management</p>
           </Link>
           <div className="register-page">
-  {loading && <Spinner />}
-  <div className="d-flex align-items-center justify-content-center">
-    <h1 style={{ fontSize: "50px", width: "40%", marginRight: "24px" }}>
-      Register to Our Smart Expense Management Platform!
-    </h1>
+            {loading && <Spinner />}
+            <div className="d-flex align-items-center justify-content-center">
+              <h1 style={{ fontSize: "50px", width: "40%", marginRight: "24px" }}>
+                Register to Our Smart Expense Management Platform!
+              </h1>
 
-    <Form layout='vertical' onFinish={submitHandlers}>
-      <Form.Item label="Name:" name='name'>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Email:" name='email'>
-        <Input type='email' />
-      </Form.Item>
-      <Form.Item label="Password:" name='password'>
-        <Input type='password' />
-      </Form.Item>
-      <div className="d-flex justify-content-between g-2 ">
-        <Link to='/login' className='p-2' style={{ color: "white", }}>Already Register? Click here to Log in</Link>
-        <button className='btn btn-primary'>Register</button>
-      </div>
-    </Form>
-  </div>
-</div>
+              <Form layout='vertical' onFinish={submitHandlers}>
+                <Form.Item name='name'>
+                <p style={{ color: "white", }}>Name:</p>
+                  <Input />
+                </Form.Item>
+                <Form.Item name='email'>
+                <p style={{ color: "white", }}>Email:</p>
+                  <Input type='email' />
+                </Form.Item>
+                <Form.Item name='password'>
+                <p style={{ color: "white", }}>Password:</p>
+                  <Input type='password' />
+                </Form.Item>
+                <div className="d-flex justify-content-between g-2 ">
+                  <Link to='/login' className='p-2' style={{ color: "white", }}>Already Register? Click here to Log in</Link>
+                  <button className='btn btn-primary'>Register</button>
+                </div>
+              </Form>
+            </div>
+          </div>
         </div>
       </div >
     </>

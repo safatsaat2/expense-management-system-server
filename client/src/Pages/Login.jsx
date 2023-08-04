@@ -37,7 +37,7 @@ const Login = () => {
   }, [navigate]);
 
   return (
-    <div style={{ background: "rgb(0, 6, 27)" }}>
+    <div style={{ background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,61,79,1) 100%)" }}>
       <div style={{ height: "100vh", maxWidth: "1280px", marginLeft: "auto", marginRight:"auto" }}>
       <Link className="navbar-brand" to='/' >
         <p style={{ fontSize: "80px", width: "60%", marginLeft: "auto", marginRight: "auto" }}> Expense Management</p>
