@@ -39,10 +39,7 @@ const Header = () => {
               Expense Management
             </Link>
             <ul className="navbar-nav ms-auto" style={{ marginRight: "40%" }}>
-              <li className="nav-item">
-                {" "}
-                <p className="nav-link">{loguser && loguser.name}</p>{" "}
-              </li>
+              
               <Link to='/'>
                 <li className="nav-item">
                   {" "}
@@ -56,6 +53,9 @@ const Header = () => {
               </li>
               </Link>
             </ul>
+                {" "}
+                <p className="nav-link" style={{marginRight:"10px"}}>{loguser && loguser.name}</p>{" "}
+
             {
               loguser ? <>
               <button className="btn btn-primary" onClick={handleLogout}>

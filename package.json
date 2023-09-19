@@ -7,7 +7,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run dev --prefix client",
-    "both": "concurrently \"npm run server\" \"npm run client\" "
+    "both": "concurrently \"npm run start\" \"npm run client\" "
   },
   "keywords": [],
   "author": "Sakibur Safat",

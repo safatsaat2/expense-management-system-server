@@ -147,7 +147,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="filters d-flex align-items-center justify-content-between px-5 py-2">
+      <div className="filters d-flex align-items-center justify-content-between px-5 pb-2 pt-5">
         {loading && <Spinner />}
         <div>
           <h6>Select Frequency</h6>
